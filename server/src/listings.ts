@@ -15,7 +15,7 @@ export const listings: Listing[] = [
         "id": "001",
         "title": "Clean and fully furnished apartment. 5 min away from CN Tower",
         "image":
-            "https://res.cloudinary.com/tiny-house/image/upload/v1560641352/mock/Toronto/toronto-listing-1_exv0tf.jpg",
+            "https://unsplash.com/photos/7LG4q-PP8ZQ",
         "address": "3210 Scotchmere Dr W, Toronto, ON, CA",
         "price": 10000,
         "numOfGuests": 2,
@@ -27,7 +27,7 @@ export const listings: Listing[] = [
         "id": "002",
         "title": "Luxurious home with private pool",
         "image":
-            "https://res.cloudinary.com/tiny-house/image/upload/v1560645376/mock/Los%20Angeles/los-angeles-listing-1_aikhx7.jpg",
+            "https://unsplash.com/photos/_TPTXZd9mOo",
         "address": "100 Hollywood Hills Dr, Los Angeles, California",
         "price": 15000,
         "numOfGuests": 2,
@@ -39,7 +39,7 @@ export const listings: Listing[] = [
         "id": "003",
         "title": "Single bedroom located in the heart of downtown San Fransisco",
         "image":
-            "https://res.cloudinary.com/tiny-house/image/upload/v1560646219/mock/San%20Fransisco/san-fransisco-listing-1_qzntl4.jpg",
+            "https://unsplash.com/photos/wD3dur3v9aE",
         "address": "200 Sunnyside Rd, San Fransisco, California",
         "price": 25000,
         "numOfGuests": 3,
