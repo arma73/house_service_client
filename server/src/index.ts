@@ -25,4 +25,4 @@ app.post("/delete-listing", (req, res) => {
     return res.send("failed to delete listing");
 });
 
-app.listen(port, err => err ? console.error(err) : console.log(`[app]: http://localhost:${port}`));
+app.listen(port, () => console.log(`[app]: http://localhost:${port}`));
