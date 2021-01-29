@@ -1,6 +1,6 @@
 import { IResolvers } from "apollo-server-express";
 import { ObjectID } from "mongodb";
-import { Database, Listing } from "../lib/types";
+import { Database, Listing } from "../../../lib/types";
 
 export const resolvers: IResolvers = {
     "Query": {
