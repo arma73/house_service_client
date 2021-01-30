@@ -6,7 +6,7 @@ const auth = new google.auth.OAuth2(
     `${process.env.PUBLIC_URL}/login`,
 );
 
-export const Google = {
+export const googleApi = {
     "authUrl": auth.generateAuthUrl({
         "access_type": "online",
         "scope": [
