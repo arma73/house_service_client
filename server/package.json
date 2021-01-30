@@ -10,7 +10,8 @@
   "scripts": {
     "start": "nodemon src/index.ts",
     "build": "tsc -p ./",
-    "seed": "ts-node src/temp/seed.ts"
+    "seed:db": "ts-node src/temp/seed.ts",
+    "clear:db": "ts-node src/temp/clear.ts"
   },
   "devDependencies": {
     "@types/body-parser": "^1.19.0",
