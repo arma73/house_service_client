@@ -10,6 +10,14 @@ export interface Listing {
 
 export interface User {
     "_id": ObjectId;
+    "token": string;
+    "name": string;
+    "avatar": string;
+    "contact": string;
+    "walletId"?: string;
+    "income": number;
+    "bookings": ObjectId[];
+    "listings": ObjectId[];
 }
 
 export interface Database {
