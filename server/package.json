@@ -1,39 +1,39 @@
 {
-    "name": "graphql_server",
-    "version": "0.0.1",
-    "author": "Arman Khilko <arma.biz9805@gmail.com>",
-    "license": "MIT",
-    "private": true,
-    "engines": {
-        "node": ">=10.x"
-    },
-    "scripts": {
-        "start": "nodemon src/index.ts",
-        "build": "tsc -p ./",
-        "seed": "ts-node src/temp/seed.ts"
-    },
-    "devDependencies": {
-        "@types/body-parser": "^1.19.0",
-        "@types/dotenv": "^8.2.0",
-        "@types/express": "^4.17.11",
-        "@types/graphql": "^14.5.0",
-        "@types/lodash.merge": "^4.6.6",
-        "@types/mongodb": "^3.6.3",
-        "@types/node": "^13.9.0",
-        "@typescript-eslint/eslint-plugin": "^2.23.0",
-        "@typescript-eslint/parser": "^2.23.0",
-        "dotenv": "^8.2.0",
-        "eslint": "^6.8.0",
-        "nodemon": "^2.0.2",
-        "ts-node": "^8.6.2",
-        "typescript": "^3.8.3"
-    },
-    "dependencies": {
-        "apollo-server-express": "^2.19.2",
-        "body-parser": "^1.19.0",
-        "express": "^4.17.1",
-        "graphql": "^15.5.0",
-        "lodash.merge": "^4.6.2",
-        "mongodb": "^3.6.3"
-    }
+  "name": "house_service-server",
+  "version": "0.0.1",
+  "author": "Arman Khilko <arma.biz9805@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "engines": {
+    "node": ">=10.x"
+  },
+  "scripts": {
+    "start": "nodemon src/index.ts",
+    "build": "tsc -p ./",
+    "seed": "ts-node src/temp/seed.ts"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.19.0",
+    "@types/dotenv": "^8.2.0",
+    "@types/express": "^4.17.11",
+    "@types/graphql": "^14.5.0",
+    "@types/lodash.merge": "^4.6.6",
+    "@types/mongodb": "^3.6.3",
+    "@types/node": "^13.9.0",
+    "@typescript-eslint/eslint-plugin": "^2.23.0",
+    "@typescript-eslint/parser": "^2.23.0",
+    "dotenv": "^8.2.0",
+    "eslint": "^6.8.0",
+    "nodemon": "^2.0.2",
+    "ts-node": "^8.6.2",
+    "typescript": "^3.8.3"
+  },
+  "dependencies": {
+    "apollo-server-express": "^2.19.2",
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "graphql": "^15.5.0",
+    "lodash.merge": "^4.6.2",
+    "mongodb": "^3.6.3"
+  }
 }
