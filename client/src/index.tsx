@@ -3,9 +3,7 @@ import { render } from "react-dom";
 import ApolloClient from "apollo-boost";
 import { ApolloProvider } from "react-apollo";
 import reportWebVitals from "./reportWebVitals";
-import Routes from "./routes/Routes";
-
-import "./temp/styles/index.css";
+import App from "./app";
 
 const client = new ApolloClient({
     "uri": "/api",
@@ -14,7 +12,7 @@ const client = new ApolloClient({
 render(
     <React.StrictMode>
         <ApolloProvider client={client}>
-            <Routes />
+            <App />
         </ApolloProvider>
     </React.StrictMode>,
     document.getElementById("root")
