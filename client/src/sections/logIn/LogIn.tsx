@@ -24,8 +24,9 @@ const LogIn: FC<IProps> = ({ setViewer }) => {
         { "data": logInData, "loading": logInLoading, "error": logInError }
     ] = useMutation<LogInData, LogInVariables>(LOG_IN, {
         "onCompleted": (data) => {
-            if (data && data.logIn) {
+            if (data && data.logIn && data.logIn.token) {
                 setViewer(data.logIn);
+                sessionStorage.setItem("_t", data.logIn.token);
                 displaySuccessNotification("You've successfully logged in!");
             }
         }

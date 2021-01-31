@@ -7,6 +7,15 @@ import App from "./app";
 
 const client = new ApolloClient({
     "uri": "/api",
+    "request": async operation => {
+        const token = sessionStorage.getItem("_t");
+
+        operation.setContext({
+            "headers": {
+                "X-CSRF-TOKEN": token || "",
+            },
+        });
+    },
 });
 
 render(

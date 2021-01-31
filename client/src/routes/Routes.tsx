@@ -25,6 +25,12 @@ const Routes: FC<IProps> = ({ setViewer, viewer }) => {
         "onCompleted": data => {
             if (data && data.logIn) {
                 setViewer(data.logIn);
+
+                if (data.logIn.token) {
+                    sessionStorage.setItem("_t", data.logIn.token);
+                } else {
+                    sessionStorage.removeItem("_t");
+                }
             }
         },
     });

@@ -19,6 +19,7 @@ const MenuItems: FC<IProps> = ({ viewer, setViewer }) => {
         "onCompleted": (data) => {
             if (data && data.logOut) {
                 setViewer(data.logOut);
+                sessionStorage.removeItem("_t");
                 displaySuccessNotification("You've successfully logged out!");
             }
         },
