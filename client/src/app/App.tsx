@@ -14,9 +14,14 @@ const initialViewer: Viewer = {
 };
 
 const App = () => {
+    const [viewer, setViewer] = useState<Viewer>(initialViewer);
+    console.log(viewer, "viewer");
+    
     return (
         <>
-            <Routes />
+            <Routes 
+                setViewer={setViewer}
+            />
         </>
     );
 };
