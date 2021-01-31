@@ -1,7 +1,8 @@
 import React, { SetStateAction, Dispatch, FC } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { Layout } from "antd";
+import { Layout, Affix } from "antd";
 import { Viewer } from "../lib/types";
+import Header from "../sections/header";
 import Home from "../sections/home";
 import Host from "../sections/host";
 import Listing from "../sections/listing";
@@ -11,12 +12,16 @@ import NotFound from "../sections/notfound";
 import LogIn from "../sections/logIn";
 
 interface IProps {
-    setViewer: Dispatch<SetStateAction<Viewer>>;
+    "viewer": Viewer;
+    "setViewer": Dispatch<SetStateAction<Viewer>>;
 }
 
-const Routes: FC<IProps> = ({ setViewer }) => (
+const Routes: FC<IProps> = ({ setViewer, viewer }) => (
     <BrowserRouter>
         <Layout id="app">
+            <Affix offsetTop={0} className="app__affix-header">
+                <Header viewer={viewer} setViewer={setViewer} />
+            </Affix>
             <Switch>
                 <Route exact path="/" component={Home} />
                 <Route exact path="/host" component={Host} />

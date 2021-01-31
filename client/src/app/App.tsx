@@ -21,6 +21,7 @@ const App = () => {
         <>
             <Routes 
                 setViewer={setViewer}
+                viewer={viewer}
             />
         </>
     );
