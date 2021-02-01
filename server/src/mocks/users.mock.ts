@@ -3,7 +3,7 @@ import { User } from "../lib/types";
 
 export const users: User[] = [
     {
-        "_id": new ObjectId("5d378db94e84753160e08b55"),
+        "_id": "5d378db94e84753160e08b55",
         "token": "token_************",
         "name": "James J.",
         "avatar":
@@ -19,7 +19,7 @@ export const users: User[] = [
         ],
     },
     {
-        "_id": new ObjectId("5d378db94e84753160e08b56"),
+        "_id": "5d378db94e84753160e08b56",
         "token": "token_************",
         "name": "Elizabeth A.",
         "avatar":
@@ -44,7 +44,7 @@ export const users: User[] = [
         ],
     },
     {
-        "_id": new ObjectId("5d378db94e84753160e08b57"),
+        "_id": "5d378db94e84753160e08b57",
         "token": "token_************",
         "name": "Andrew D.",
         "avatar":
@@ -67,7 +67,7 @@ export const users: User[] = [
         ],
     },
     {
-        "_id": new ObjectId("5d378db94e84753160e08b58"),
+        "_id": "5d378db94e84753160e08b58",
         "token": "token_************",
         "name": "Danielle C.",
         "avatar":
@@ -83,7 +83,7 @@ export const users: User[] = [
         ],
     },
     {
-        "_id": new ObjectId("5d378db94e84753160e08b59"),
+        "_id": "5d378db94e84753160e08b59",
         "token": "token_************",
         "name": "Sarah K.",
         "avatar":
