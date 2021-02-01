@@ -25,10 +25,8 @@ const UserBookings: FC<IProps> = ({
         ? (
             <List
                 grid={{
-                    "gutter": 8,
-                    "xs": 1,
-                    "sm": 2,
-                    "lg": 4,
+                    "gutter": 16,
+                    "column": 4,
                 }}
                 dataSource={result ? result : undefined}
                 locale={{ "emptyText": "User doesn't have any listings yet!" }}

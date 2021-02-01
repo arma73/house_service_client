@@ -89,7 +89,7 @@ const User: FC<RouteComponentProps<MatchParams> & IProps> = ({ match, viewer }) 
 
     return (
         <Layout.Content className="user">
-            <Row gutter={12} typeof="flex" justify="space-between">
+            <Row gutter={12} justify="space-between">
                 <Col xs={24}>{userProfileElement}</Col>
                 <Col xs={24}>
                     {userListingsElement}
