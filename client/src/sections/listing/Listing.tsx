@@ -1,10 +1,12 @@
 import React, { FC, useState } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { useQuery } from "@apollo/react-hooks";
-import { Layout } from "antd";
+import { Layout, Col, Row } from "antd";
 import PageSkeleton from "../../lib/components/pageskeleton";
 import ErrorBanner from "../../lib/components/errorbanner";
 import { LISTING, ListingVariables, Listing as ListingData } from "../../lib/graphql/queries/listing";
+import ListingDetails from "./components/listingdetails";
+import ListingBookings from "./components/listingbookings";
 
 interface MatchParams {
     "id": string;
@@ -44,9 +46,31 @@ const Listing: FC<RouteComponentProps<MatchParams>> = ({ match }) => {
     
     const listing = data ? data.listing : null;
     const listingBookings = listing ? listing.bookings : null;
+    
+    const listingDetailsElement = listing 
+        ? <ListingDetails listing={listing} />
+        : null;
+
+    const listingBookingsElement = listingBookings
+        ? (
+            <ListingBookings 
+                listingBookings={listingBookings}
+                bookingsPage={bookingsPage}
+                limit={PAGE_LIMIT}
+                setBookingsPage={setBookingsPage}
+            />
+        )
+        : null;
 
     return (
-        <h2>Listing</h2>        
+        <Layout.Content className="listings">
+            <Row gutter={24} justify="space-between">
+                <Col xs={24} lg={14}>
+                    {listingDetailsElement}
+                    {listingBookingsElement}
+                </Col>
+            </Row>
+        </Layout.Content>
     );
 };
 
