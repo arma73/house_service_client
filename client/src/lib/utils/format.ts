@@ -3,5 +3,5 @@ export const formatListingPrice = (price: number, round = true) => {
         ? Math.round(price / 100)
         : price / 100;
     
-    return `${formattedListingPrice}`;
+    return `${formattedListingPrice}$`;
 };
