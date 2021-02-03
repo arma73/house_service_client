@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, SetStateAction, useState, Dispatch } from "react";
 import { RouteComponentProps } from "react-router-dom";
 import { Col, Layout, Row } from "antd";
 import UserProfile from "./components/userprofile";
@@ -12,6 +12,7 @@ import { useQuery } from "@apollo/react-hooks";
 
 interface IProps {
     "viewer": Viewer;
+    "setViewer": Dispatch<SetStateAction<Viewer>>
 }
 interface MatchParams {
     "id": string;
@@ -19,11 +20,11 @@ interface MatchParams {
 
 const PAGE_LIMIT = 4;
 
-const User: FC<RouteComponentProps<MatchParams> & IProps> = ({ match, viewer }) => {
+const User: FC<RouteComponentProps<MatchParams> & IProps> = ({ match, viewer, setViewer }) => {
     const [listingsPage, setListingsPage] = useState(1);
     const [bookingsPage, setBookingsPage] = useState(1);
 
-    const { data, loading, error } = useQuery<UserData, UserVariables>(USER, {
+    const { data, loading, error, refetch } = useQuery<UserData, UserVariables>(USER, {
         "variables": {
             "id": match.params.id,
             "limit": PAGE_LIMIT,
@@ -31,6 +32,19 @@ const User: FC<RouteComponentProps<MatchParams> & IProps> = ({ match, viewer }) 
             listingsPage,
         }
     });
+
+    const handleUserRefetch = async (): Promise<void> => {
+        await refetch();
+    };
+
+    const stripeError = new URL(window.location.href).searchParams.get("stripe_error");
+    const stripeErrorBanner = stripeError 
+        ? (
+            <ErrorBanner 
+                description="We had an issue connecting with Stripe. Please try again soon."
+            />
+        )
+        : null;
 
     if (loading) {
         return (
@@ -62,7 +76,14 @@ const User: FC<RouteComponentProps<MatchParams> & IProps> = ({ match, viewer }) 
         : null;
 
     const userProfileElement = user
-        ? <UserProfile user={user} isViewerUser={isViewerUser} />
+        ? (
+            <UserProfile 
+                user={user} 
+                isViewerUser={isViewerUser} 
+                setViewer={setViewer}
+                handleUserRefetch={handleUserRefetch}
+            />
+        )
         : null;
 
     const userListingsElement = userListings
@@ -89,6 +110,7 @@ const User: FC<RouteComponentProps<MatchParams> & IProps> = ({ match, viewer }) 
 
     return (
         <Layout.Content className="user">
+            {stripeErrorBanner}
             <Row gutter={12} justify="space-between">
                 <Col xs={24}>{userProfileElement}</Col>
                 <Col xs={24}>
