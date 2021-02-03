@@ -11,6 +11,7 @@ import Listings from "../sections/listings";
 import User from "../sections/user";
 import NotFound from "../sections/notfound";
 import LogIn from "../sections/logIn";
+import Stripe from "../sections/stripe";
 import HeaderSkeleton from "../lib/components/headerskeleton";
 import { LOG_IN, LogIn as LogInData, LogInVariables } from "../lib/graphql/mutations/logIn";
 import ErrorBanner from "../lib/components/errorbanner";
@@ -72,10 +73,15 @@ const Routes: FC<IProps> = ({ setViewer, viewer }) => {
                         path="/login"
                         render={props => <LogIn {...props} setViewer={setViewer} />}
                     />
+                    <Route
+                        exact
+                        path="/stripe"
+                        render={props => <Stripe {...props} viewer={viewer} setViewer={setViewer} />}
+                    />
                     <Route 
                         exact 
                         path="/user/:id" 
-                        render={props => <User {...props} viewer={viewer} />}
+                        render={props => <User {...props} viewer={viewer} setViewer={setViewer} />}
                     />
                     <Route component={NotFound} />
                 </Switch>
