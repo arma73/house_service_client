@@ -2,9 +2,9 @@ import React, { useEffect, useRef, FC, Dispatch, SetStateAction } from "react";
 import { Redirect, RouteComponentProps } from "react-router-dom";
 import { useMutation } from "@apollo/react-hooks";
 import { Layout, Spin } from "antd";
-import { 
-    CONNECT_STRIPE, 
-    ConnectStripe as ConnectStripeData, 
+import {
+    CONNECT_STRIPE,
+    ConnectStripe as ConnectStripeData,
     ConnectStripeVariables 
 } from "../../lib/graphql/mutations/connectstripe";
 import { displaySuccessNotification } from "../../lib/utils/display";
@@ -12,7 +12,7 @@ import { Viewer } from "../../lib/types";
 
 interface IProps {
     "viewer": Viewer;
-    "setViewer": Dispatch<SetStateAction<Viewer>>
+    "setViewer": Dispatch<SetStateAction<Viewer>>;
 }
 
 const Stripe: FC<IProps & RouteComponentProps> = ({ viewer, setViewer, history }) => {
