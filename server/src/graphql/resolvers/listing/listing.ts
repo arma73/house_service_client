@@ -3,6 +3,7 @@ import { Request } from "express";
 import { ObjectId } from "mongodb";
 import { Listing, Database, User, ListingType } from "../../../lib/types";
 import { googleApi } from "../../../lib/api/google";
+import { cloudinaryApi } from "../../../lib/api/cloudinary";
 import { authorize } from "../../../lib/utils/authorize";
 import { 
     ListingArgs, 
@@ -125,9 +126,12 @@ export const listingResolvers: IResolvers = {
                 throw new Error("invalid address input");
             }
 
+            const imageUrl = await cloudinaryApi.upload(input.image);
+
             const insertResult = await db.listings.insertOne({
                 "_id": new ObjectId(),
                 ...input,
+                "image": imageUrl,
                 "bookings": [],
                 "bookingsIndex": {},
                 "host": viewer._id,
