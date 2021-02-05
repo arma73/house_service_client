@@ -9,25 +9,42 @@ import { LISTING, ListingVariables, Listing as ListingData } from "../../lib/gra
 import ListingDetails from "./components/listingdetails";
 import ListingBookings from "./components/listingbookings";
 import ListingCreateBooking from "./components/listingcreatebooking";
+import ListingCreateBookingModal from "./components/listingcreatebookingmodal";
+import { Viewer } from "../../lib/types";
 
 interface MatchParams {
     "id": string;
 }
 
+interface IProps {
+    "viewer": Viewer;
+}
+
 const PAGE_LIMIT = 3;
 
-const Listing: FC<RouteComponentProps<MatchParams>> = ({ match }) => {
+const Listing: FC<IProps & RouteComponentProps<MatchParams>> = ({ match, viewer }) => {
     const [bookingsPage, setBookingsPage] = useState(1);
     const [checkInDate, setCheckInDate] = useState<Moment | null>(null);
     const [checkOutDate, setCheckOutDate] = useState<Moment | null>(null);
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
     
-    const { loading, data, error } = useQuery<ListingData, ListingVariables>(LISTING, {
+    const { loading, data, error, refetch } = useQuery<ListingData, ListingVariables>(LISTING, {
         "variables": {
             "id": match.params.id,
             "limit": PAGE_LIMIT,
             bookingsPage,
         },
     });
+
+    const clearBookingDate = (): void => {
+        setModalVisible(false);
+        setCheckInDate(null);
+        setCheckOutDate(null);
+    };
+
+    const handleListingRefetch = async (): Promise<void> => {
+        await refetch();
+    };
 
     if (loading) {
         return (
@@ -68,12 +85,31 @@ const Listing: FC<RouteComponentProps<MatchParams>> = ({ match }) => {
 
     const listingCreateBookingElement = listing 
         ? (
-            <ListingCreateBooking 
+            <ListingCreateBooking
+                viewer={viewer}
+                host={listing.host}
                 price={listing.price}
+                bookingsIndex={listing.bookingsIndex}
                 checkInDate={checkInDate}
                 checkOutDate={checkOutDate}
                 setCheckInDate={setCheckInDate}
                 setCheckOutDate={setCheckOutDate}
+                setModalVisible={setModalVisible}
+            />
+        )
+        : null;
+
+    const listingCreateBookingModalElement = listing && checkInDate && checkOutDate 
+        ? (
+            <ListingCreateBookingModal
+                id={listing.id}
+                modalVisible={modalVisible}
+                setModalVisible={setModalVisible}
+                checkInData={checkInDate}
+                checkOutData={checkOutDate}
+                price={listing?.price}
+                clearBookingDate={clearBookingDate}
+                handleListingRefetch={handleListingRefetch}
             />
         )
         : null;
@@ -89,6 +125,7 @@ const Listing: FC<RouteComponentProps<MatchParams>> = ({ match }) => {
                     {listingCreateBookingElement}
                 </Col>
             </Row>
+            {listingCreateBookingModalElement}
         </Layout.Content>
     );
 };
