@@ -70,7 +70,7 @@ const Listings: FC<RouteComponentProps<MatchParams>> = ({ match }) => {
                         setPage={setPage}
                     />
                     <ListingsFilters filter={filter} setFilter={setFilter} />
-"                </Affix>
+                </Affix>
                 <List 
                     grid={{
                         "gutter": 8,
