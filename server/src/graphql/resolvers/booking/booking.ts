@@ -75,7 +75,7 @@ export const bookingResolvers: IResolvers = {
                 const checkInDate = new Date(checkIn);
                 const checkOutDate = new Date(checkOut);
 
-                if (checkInDate < checkOutDate) {
+                if (checkOutDate < checkInDate) {
                     throw new Error("check out date can't be before check in date");
                 }
 
@@ -112,7 +112,7 @@ export const bookingResolvers: IResolvers = {
                 });
 
                 const insertedBooking: Booking = insertRes.ops[0];
-
+                
                 // update user document of host to incroment income
                 await db.users.updateOne({
                     "_id": host._id,
