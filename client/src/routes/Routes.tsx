@@ -1,4 +1,5 @@
 import React, { SetStateAction, Dispatch, FC, useEffect, useRef } from "react";
+import { Elements } from "react-stripe-elements";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Layout, Affix, Spin } from "antd";
 import { useMutation } from "@apollo/react-hooks";
@@ -68,8 +69,17 @@ const Routes: FC<IProps> = ({ setViewer, viewer }) => {
                     <Route 
                         exact 
                         path="/host" 
-                        render={props => <Host {...props} viewer={viewer}  />} />
-                    <Route exact path="/listing/:id" component={Listing} />
+                        render={props => <Host {...props} viewer={viewer}  />} 
+                    />
+                    <Route 
+                        exact 
+                        path="/listing/:id" 
+                        render={props => (
+                            <Elements>
+                                <Listing {...props} viewer={viewer}  />
+                            </Elements>
+                        )} 
+                    />
                     <Route exact path="/listings/:location?" component={Listings} />
                     <Route
                         exact
