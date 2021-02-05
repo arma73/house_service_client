@@ -110,11 +110,28 @@ const Host: FC<IProps> = ({ viewer }) => {
             <Layout.Content className="host-content">
                 <div className="host__form-header">
                     <Title level={4} className="host__form-title">
-                        You'll have to be signed in and connected with Stripe to host a listing!
+                        {
+                            viewer.id && !viewer.hasWallet
+                                ? "You'll have to be connected with Stripe to host a listing!"
+                                : "You'll have to be signed in and connected with Stripe to host a listing!"
+                        }
                     </Title>
                     <Text type="secondary">
-                        We only allow users who've signed in to our application and have connected with Stripe to host new listings.
-                        You can sign in at the <Link to="/login">/login</Link> page and connect with Stripe shortly after.
+                        {
+                            viewer.id && !viewer.hasWallet
+                                ? (
+                                    <>
+                                        We only allow users who are connected to Stripe to post new listings. 
+                                        You can connect to Stripe in <Link to={`/user/${viewer.id}`}> your profile. </Link>
+                                    </>
+                                )
+                                : (
+                                    <>
+                                        We only allow users who've signed in to our application and have connected with Stripe to host new listings.
+                                        You can sign in at the <Link to="/login">/login</Link> page and connect with Stripe shortly after.
+                                    </>
+                                )
+                        }
                     </Text>
                 </div>
             </Layout.Content>
@@ -165,11 +182,11 @@ const Host: FC<IProps> = ({ viewer }) => {
                     <Radio.Group>
                         <Radio.Button value={ListingType.APARTMENT}>
                             <BankFilled style={{ "color": iconColor }} />
-                            <span>Apartment</span>
+                            {" "}<span>Apartment</span>
                         </Radio.Button>
                         <Radio.Button value={ListingType.HOUSE}>
                             <HomeFilled style={{ "color": iconColor }} />
-                            <span>House</span>
+                            {" "}<span>House</span>
                         </Radio.Button>
                     </Radio.Group>
                 </Item>

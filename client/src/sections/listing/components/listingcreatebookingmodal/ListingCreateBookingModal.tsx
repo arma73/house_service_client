@@ -80,7 +80,7 @@ const ListingCreateBookingModal: FC<IProps> = ({
                     : "Sorry! We weren't able to book the listing. Please try again later."
             );
         }
-        
+
         if (paymentMethod) {
             createBooking({
                 "variables": {
@@ -111,7 +111,7 @@ const ListingCreateBookingModal: FC<IProps> = ({
                         Book your trip
                     </Title>
                     <Paragraph>
-                        Enter your payment information to book the listing from the dates between 
+                        Enter your payment information to book the listing from the dates between{" "}
                         <Text mark strong>
                             {moment(checkInData).format("MMMM Do YYYY")}
                         </Text> {" "}
@@ -150,6 +150,14 @@ const ListingCreateBookingModal: FC<IProps> = ({
                     >
                         Book
                     </Button>
+                </div>
+                <div className="listing-booking-modal__stripe-card-section">
+                    <Text>
+                        A Stripe test environment is used for this demo app and listings can be 
+                        booked with fake Credit Card information as shown here in the - {" "}
+                        <a href={"https://stripe.com/docs/testing#cards"} target="_blank" rel="noreferrer">Stripe documentation. </a>
+                        If you want to book a listing in this demo app, please don't use real credit card information 🙂.
+                    </Text>
                 </div>
             </div>
         </Modal>
