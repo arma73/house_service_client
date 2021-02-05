@@ -1,4 +1,4 @@
-import React, { SetStateAction, Dispatch, FC, useEffect, useRef } from "react";
+import React, { SetStateAction, Dispatch, FC, useEffect } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { Layout, Affix, Spin } from "antd";
 import { useMutation } from "@apollo/react-hooks";
@@ -35,11 +35,10 @@ const Routes: FC<IProps> = ({ setViewer, viewer }) => {
             }
         },
     });
-    const logInRef = useRef(logIn);
 
     useEffect(() => {
-        logInRef.current();
-    }, []);
+        logIn();
+    }, [logIn]);
 
     if (!viewer.didRequest && !error) {
         return (
