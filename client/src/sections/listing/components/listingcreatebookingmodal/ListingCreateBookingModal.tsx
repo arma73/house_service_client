@@ -1,7 +1,7 @@
 import React, { FC, Dispatch, SetStateAction } from "react";
 import { Modal, Button, Divider, Typography } from "antd";
 import { useMutation } from "@apollo/react-hooks";
-import { CardElement, injectStripe, ReactStripeElements } from "react-stripe-elements";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { KeyOutlined } from "@ant-design/icons";
 import moment, { Moment } from "moment";
 import { formatListingPrice } from "../../../../lib/utils/format";
@@ -25,7 +25,7 @@ interface IProps {
 
 const { Paragraph, Text, Title } = Typography;
 
-const ListingCreateBookingModal: FC<IProps & ReactStripeElements.InjectedStripeProps> = ({ 
+const ListingCreateBookingModal: FC<IProps> = ({ 
     id,
     modalVisible,
     setModalVisible,
@@ -34,8 +34,9 @@ const ListingCreateBookingModal: FC<IProps & ReactStripeElements.InjectedStripeP
     checkInData,
     checkOutData,
     price,
-    stripe
 }) => {
+    const stripe = useStripe();
+    const elements = useElements();
     const [createBooking, { loading }] = useMutation<
         CreateBookingData, 
         CreateBookingVariables
@@ -60,29 +61,38 @@ const ListingCreateBookingModal: FC<IProps & ReactStripeElements.InjectedStripeP
     // const totalPrice = listingPrice + toHouseFee;
 
     const handleCreateBooking = async () => {
-        if (!stripe) {
+        if (!stripe || !elements) {
             return displayErrorMessage("Sorry! We weren't able to connect with Stripe.");
         }
+        const cardElement = elements.getElement(CardElement);
 
-        let { token: stripeToken, error } = await stripe.createToken();
-        if (stripeToken) {
-            createBooking({
-                "variables": {
-                    "input": {
-                        id,
-                        "source": stripeToken.id,
-                        "checkIn": moment(checkInData).format("YYYY-MM-DD"),
-                        "checkOut": moment(checkOutData).format("YYYY-MM-DD"),
-                    },
-                },
-            });
-        } else {
+        if (!cardElement) return;
+
+        const { error, paymentMethod } = await stripe.createPaymentMethod({
+            "type": "card",
+            "card": cardElement,
+        });
+
+        if (error) {
             displayErrorMessage(
                 error && error.message 
                     ? error.message 
                     : "Sorry! We weren't able to book the listing. Please try again later."
             );
         }
+        
+        if (paymentMethod) {
+            createBooking({
+                "variables": {
+                    "input": {
+                        id,
+                        "source": paymentMethod.id,
+                        "checkIn": moment(checkInData).format("YYYY-MM-DD"),
+                        "checkOut": moment(checkOutData).format("YYYY-MM-DD"),
+                    },
+                },
+            });
+        } 
     };
 
     return (
@@ -127,8 +137,8 @@ const ListingCreateBookingModal: FC<IProps & ReactStripeElements.InjectedStripeP
                 <Divider />
                 <div className="listing-booking-modal__stripe-card-section">
                     <CardElement 
-                        hidePostalCode
                         className="listing-booking-modal__stripe-card"
+                        options={{ "iconStyle": "solid" }}
                     />
                     <Button 
                         size="large" 
@@ -136,6 +146,7 @@ const ListingCreateBookingModal: FC<IProps & ReactStripeElements.InjectedStripeP
                         loading={loading}
                         className="listing-booking-modal__cta"
                         onClick={handleCreateBooking}
+                        disabled={!stripe}
                     >
                         Book
                     </Button>
@@ -145,4 +156,4 @@ const ListingCreateBookingModal: FC<IProps & ReactStripeElements.InjectedStripeP
     );
 };
 
-export default injectStripe(ListingCreateBookingModal);
+export default ListingCreateBookingModal;

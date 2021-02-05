@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Routes from "../routes/Routes";
-import { StripeProvider } from "react-stripe-elements";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { Viewer } from "../lib/types";
 
 import "antd/dist/antd.css";
@@ -14,16 +15,18 @@ const initialViewer: Viewer = {
     "didRequest": false,
 };
 
+const stripePromise = loadStripe(process.env.REACT_APP_S_PUBLISHABLE_KEY as string);
+
 const App = () => {
     const [viewer, setViewer] = useState<Viewer>(initialViewer);
     
     return (
-        <StripeProvider apiKey={process.env.REACT_APP_S_PUBLISHABLE_KEY as string}>
+        <Elements stripe={stripePromise}>
             <Routes 
                 setViewer={setViewer}
                 viewer={viewer}
             />
-        </StripeProvider>
+        </Elements>
     );
 };
 
