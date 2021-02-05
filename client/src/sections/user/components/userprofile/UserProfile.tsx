@@ -14,7 +14,7 @@ interface IProps {
     "user": UserData["user"];
     "setViewer": Dispatch<SetStateAction<Viewer>>;
     "isViewerUser": boolean;
-    "handleUserRefetch": () => void;
+    "handleUserRefetch": () => Promise<void>;
 }
 
 const stripeAuthUrl = `https://dashboard.stripe.com/oauth/v2/authorize?response_type=code&client_id=${process.env.REACT_APP_S_CLIENT_ID}&scope=read_write`;
