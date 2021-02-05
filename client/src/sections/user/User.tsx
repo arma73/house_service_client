@@ -30,7 +30,10 @@ const User: FC<RouteComponentProps<MatchParams> & IProps> = ({ match, viewer, se
             "limit": PAGE_LIMIT,
             bookingsPage,
             listingsPage,
-        }
+        },
+        "onCompleted": (data) => {
+            setViewer(prevState => ({ ...prevState, "hasWallet": data.user.hasWallet }));
+        },
     });
 
     const handleUserRefetch = async (): Promise<void> => {
